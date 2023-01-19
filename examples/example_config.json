@@ -1,0 +1,15 @@
+{
+  "extensions": ["bot_actions.my_id", "bot_actions.my_name"],
+  "commands": {
+    "myid": {
+      "users": [],
+      "roles": [],
+      "func_path": "MyId.action_myid"
+    },
+    "myname": {
+      "users": [],
+      "roles": [],
+      "func_path": "MyName.action_myname"
+    }
+  }
+}
