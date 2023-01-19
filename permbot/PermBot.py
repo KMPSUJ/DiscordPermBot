@@ -1,6 +1,6 @@
 import discord
 import discord.ext.commands as commands
-from permbot.CmdManager import CmdManager
+from .CmdManager import CmdManager
 import asyncio
 import json
 
