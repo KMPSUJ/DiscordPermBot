@@ -8,7 +8,6 @@ import json
 class PermBot(commands.Bot):
     """
     Final class for the discord bot.
-    Second comment.
     """
     bot_greeting: str
     perms: CmdManager
@@ -65,4 +64,3 @@ class PermBot(commands.Bot):
         await message.channel.send("Wrong permissions.")
         print("Wrong permissions")
         return
-
