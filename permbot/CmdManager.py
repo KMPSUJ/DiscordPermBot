@@ -10,7 +10,6 @@ class CmdManager:
     def __init__(self, conf: configparser.ConfigParser, bot: commands.Bot) -> None:
         self.bot = bot
         self.parse_all_commands(conf)
-        print(self.cmds)
 
     def parse_all_commands(self, conf: configparser.ConfigParser) -> None:
         for key in conf.sections():
