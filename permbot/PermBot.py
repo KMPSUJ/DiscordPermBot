@@ -2,28 +2,29 @@ import discord
 import discord.ext.commands as commands
 from .CmdManager import CmdManager
 import asyncio
-import json
+import configparser
 
 
 class PermBot(commands.Bot):
     """
-    Final class for the discord bot.
+    Class for a discord bot which respects, and manages user permissions.
     """
     bot_greeting: str
     perms: CmdManager
+    config: configparser.ConfigParser
 
-    def __init__(self,bot_greeting, config_file: str, *, intents: discord.Intents, **client_options) -> None:
+    def __init__(self, bot_greeting, config_file: str, *, intents: discord.Intents, **client_options) -> None:
         self.bot_greeting = bot_greeting
         commands.Bot.__init__(self, self.bot_greeting, intents=intents, **client_options)
 
-        with open(config_file, "r") as f:
-            conf = json.load(f)
-        self.load_all_extensions(conf["extensions"])
-        self.perms = CmdManager(conf, self)
+        self.config = configparser.ConfigParser()
+        self.config.read(config_file)
+        self.load_all_extensions(self.config["extensions"])
+        self.perms = CmdManager(self.config, self)
 
-    def load_all_extensions(self, ext_list: list) -> None:
-        for e in ext_list:
-            asyncio.run(self.load_extension(e))
+    def load_all_extensions(self, ext_list: configparser.SectionProxy) -> None:
+        for key in ext_list:
+            asyncio.run(self.load_extension(ext_list[key]))
 
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
